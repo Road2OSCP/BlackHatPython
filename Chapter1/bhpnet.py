@@ -79,7 +79,7 @@ def client_handler(client_socket):
                 
                 while True:
                         # show a simple prompt
-                        client_socket.send("<BHP:#> ")
+                        client_socket.send("<BHP:#>")
                         
                         # now we receive until we see a linefeed (enter key)
                         cmd_buffer = ""
@@ -108,7 +108,7 @@ def server_loop():
         server.listen(5)        
         
         while True:
-                client_socket, addr = server.accept()
+                client_socket = server.accept()[0]
                 
                 # spin off a thread to handle our new client
                 client_thread = threading.Thread(target=client_handler,args=(client_socket,))
@@ -196,7 +196,7 @@ def main():
                 
         # read the commandline options
         try:
-                opts, args = getopt.getopt(sys.argv[1:],"hle:t:p:cu:",["help","listen","execute","target","port","command","upload"])
+                opts = getopt.getopt(sys.argv[1:],"hle:t:p:cu:",["help","listen","execute","target","port","command","upload"])[0]
         except getopt.GetoptError as err:
                 print str(err)
                 usage()
